@@ -2,8 +2,18 @@
 import 'core-js/es/map';
 import 'core-js/es/set';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Text from '@components/Text';
+import { render } from 'react-dom';
+import CounterContainer from './container/CounterContainer';
+import 'lodash';
 import '@sass/common.scss';
 
-ReactDOM.render(<Text />, document.getElementById('root'));
+import Text from '@components/Text';
+import Counter from '@components/Counter';
+
+render(
+    <CounterContainer.Provider initialState={2}>
+        <Text />
+        <Counter />
+    </CounterContainer.Provider>,
+    document.getElementById('root')
+);

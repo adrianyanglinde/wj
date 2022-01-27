@@ -1,5 +1,5 @@
-const path = require('path');
 const shell = require('shelljs');
+const webpack = require('webpack');
 const SpritesmithPlugin = require('webpack-spritesmith');
 const { findParam } = require('./utils');
 const paths = require('../config/paths');
@@ -10,8 +10,7 @@ if (!name) {
     shell.exit();
 }
 const templateFunction = function (data) {
-    console.log('data', data);
-    var shared = `%sprite-${name} { background-image: url(I); background-size: SWpx SHpx; }`
+    var shared = `@mixin sprite-${name} { background-image: url(I); background-size: SWpx SHpx; }`
         .replace('I', data.sprites[0].image)
         .replace('SW', data.spritesheet.width)
         .replace('SH', data.spritesheet.height);
@@ -29,12 +28,11 @@ const templateFunction = function (data) {
     return shared + '\n' + perSprite;
 };
 
-module.exports = {
-    mode: 'development',
-    entry: path.resolve(__dirname, 'sprite.js'),
+const configuration = {
+    entry: `${paths.appScripts}/sprite-entry.js`,
     output: {
-        path: paths.appBuild,
-        filename: '[name].min.js'
+        path: `${paths.appPath}/dist`,
+        filename: 'sprite.min.js'
     },
     plugins: [
         new SpritesmithPlugin({
@@ -59,3 +57,16 @@ module.exports = {
         })
     ]
 };
+
+const compiler = webpack(configuration);
+
+compiler.run((err, stats) => {
+    if (err || stats.hasErrors()) {
+        console.log(err);
+    }
+    console.log('done');
+    shell.rm('-rf', `${paths.appPath}/dist`);
+    // compiler.close((closeErr) => {
+    //     // ...
+    // });
+});

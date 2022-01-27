@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const SpritesmithPlugin = require('webpack-spritesmith');
 const paths = require('./paths');
 
 module.exports = {
@@ -61,40 +60,11 @@ module.exports = {
             inject: 'body',
             filename: './index.html'
         }),
-        // new SpritesmithPlugin({
-        //   // 目标小图标
-        //   src: {
-        //     cwd: path.resolve(__dirname, "../src/assets/images/icons"),
-        //     glob: "*.png"
-        //   },
-        //   // 输出雪碧图文件及样式文件
-        //   target: {
-        //     image: path.resolve(__dirname, "../src/assets/images/sprite.png"),
-        //     css: [
-        //       [
-        //         path.resolve(__dirname, "../src/assets/sass/sprite.scss"),
-        //         {
-        //           format: "function_based_template"
-        //         }
-        //       ]
-        //     ]
-        //   },
-        //   customTemplates: {
-        //     function_based_template: path.resolve(
-        //       __dirname,
-        //       "../my_handlebars_template.handlebars"
-        //     )
-        //   },
-        //   // 样式文件中调用雪碧图地址写法
-        //   apiOptions: {
-        //     cssImageRef: "../assets/images/sprite.png?v=" + Date.parse(new Date())
-        //   },
-        //   spritesmithOptions: {
-        //     algorithm: "binary-tree",
-        //     padding: 4
-        //   }
-        // }),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        // The ProvidePlugin makes a package available as a variable in every module compiled through webpack.
+        new webpack.ProvidePlugin({
+            _: 'lodash'
+        })
     ],
     resolve: {
         extensions: ['.js', '.json', '.ts', '.tsx'],

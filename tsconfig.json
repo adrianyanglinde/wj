@@ -10,9 +10,11 @@
         "allowSyntheticDefaultImports": true,
         // this must be specified if "paths" is specified.
         "baseUrl": "./",
-        // lets you declare how TypeScript should resolve an import in your require/imports. 
+        // lets you declare how TypeScript should resolve an import in your require/imports.
         "paths": {
             "@components/*": ["src/components/*"]
         }
-    }
+    },
+    "include": ["src", "public"],
+    "exclude": ["node_modules", "build"]
 }

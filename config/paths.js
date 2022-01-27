@@ -47,5 +47,6 @@ module.exports = {
     appPackageJson: resolveApp('package.json'),
     appImages: resolveApp('public/assets/images'),
     appSass: resolveApp('public/sass'),
+    appScripts: resolveApp('scripts'),
     ...resolves
 };
