@@ -4,7 +4,7 @@ interface IProp {
     test?: string;
 }
 
-const Test: React.FC<IProp> = ({ test = 'dfsdfsd ] sd fsad test' }) => {
+const Test: React.FC<IProp> = ({ test = '111dfsdfsd ] sd fsad test' }) => {
     return <div className="test">{test}</div>;
 };
 

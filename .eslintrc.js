@@ -1,3 +1,5 @@
+const paths = require('./config/paths');
+
 module.exports = {
     env: {
         es6: true,
@@ -9,7 +11,7 @@ module.exports = {
     plugins: ['@typescript-eslint', 'prettier'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        project: './tsconfig.json',
+        project: './tsconfig.json'
     },
     // add your custom rules here
     rules: {
@@ -23,5 +25,15 @@ module.exports = {
         window: true,
         require: true,
         _: true
+    },
+    settings: {
+        // 'import/resolver': {
+        //     alias: {
+        //         map: [
+        //             ['@components', './src/components/']
+        //         ],
+        //         // extensions: ['.ts', '.js', '.jsx', '.json']
+        //     }
+        // }
     }
 };

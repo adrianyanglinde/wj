@@ -3,11 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SpritesmithPlugin = require('webpack-spritesmith');
 const paths = require('./paths');
 
-// Webpack uses `publicPath` to determine where the app is being served from.
-// In development, we always serve from the root. This makes config easier.
-// It requires a trailing slash, or the file assets will get an incorrect path.
-const publicPath = '/';
-
 module.exports = {
     entry: {
         index: paths.appIndexJs
@@ -31,26 +26,12 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             minimize: true,
-                            sourceMap: true,
-                            publicPath: publicPath //TODO:replace the url of images in css     relative url
+                            sourceMap: true
                         }
                     },
-                    // {
-                    //     loader: 'postcss-loader',
-                    //     options: {
-                    //         plugins: [
-                    //             require('autoprefixer'),
-                    //             require('postcss-px2rem')({
-                    //                 remUnit: 36, // 36px = 1rem
-                    //                 remPrecision: 2 // rem的小数点后位数
-                    //             })
-                    //         ]
-                    //     }
-                    // },
                     {
                         loader: 'sass-loader',
                         options: {
-                            // prependData: 'variables.scss',
                             sourceMap: true
                         }
                     }
@@ -64,7 +45,8 @@ module.exports = {
                         options: {
                             limit: 8192,
                             esModule: false,
-                            name: 'images/[name]_[hash:7].[ext]' //url relative to output publicPath
+                            //url relative to output publicPath
+                            name: 'images/[name]_[hash:7].[ext]'
                         }
                     }
                 ]
@@ -119,8 +101,9 @@ module.exports = {
         alias: {
             '@': paths.appSrc,
             '@pages': paths.resolveSrc('pages'),
-            '@assets': paths.resolveSrc('assets'),
-            '@components': paths.resolveSrc('components')
+            '@components': paths.resolveSrc('components'),
+            '@assets': paths.resolvePublic('assets'),
+            '@sass': paths.resolvePublic('sass')
         }
     }
 };

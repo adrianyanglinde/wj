@@ -8,11 +8,21 @@
                     "firefox": "60",
                     "chrome": "67",
                     "safari": "11.1",
-                    "ie": "8"
-                }
+                    "ie": "9"
+                },
+                // Outputs to console.log the polyfills and transform plugins enabled by preset-env
+                "debug": false,
+                // Enable transformation of ES module syntax to another module type.
+                "modules": false,
+                // This option configures how @babel/preset-env handles polyfills.
+                "useBuiltIns": "usage",
+                // with useBuiltIns: 'usage' option only polyfills stable features,
+                // but you can enable polyfilling of proposals by proposals option
+                "corejs": { "version": "3.20", "proposals": true }
             }
         ],
         "@babel/preset-react",
         "@babel/preset-typescript"
-    ]
+    ],
+    "plugins": ["@babel/plugin-transform-runtime"]
 }
