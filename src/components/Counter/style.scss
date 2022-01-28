@@ -1,5 +1,12 @@
-.test {
-    width: 1000px;
-    height: 642px;
-    background: url(~@assets/images/banner.jpg);
+@import '~@sass/mixin';
+
+.button {
+    &-dec {
+        @include sprite-icons;
+        @include arr_2;
+    }
+    &-inc {
+        @include sprite-icons;
+        @include arr_1;
+    }
 }

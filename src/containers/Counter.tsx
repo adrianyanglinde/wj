@@ -8,6 +8,6 @@ function useCounter(initialState = 0) {
     return { count, decrement, increment };
 }
 
-const Counter = createContainer(useCounter);
+const CounterContainer = createContainer(useCounter);
 
-export default Counter;
+export default CounterContainer;

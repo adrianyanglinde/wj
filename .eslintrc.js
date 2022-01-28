@@ -1,5 +1,3 @@
-const paths = require('./config/paths');
-
 module.exports = {
     env: {
         es6: true,
@@ -7,12 +5,21 @@ module.exports = {
         browser: true,
         jquery: true
     },
-    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+    extends: ['eslint:recommended', 'plugin:prettier/recommended'],
     plugins: ['@typescript-eslint', 'prettier'],
     parser: '@typescript-eslint/parser',
-    parserOptions: {
-        project: './tsconfig.json'
-    },
+    overrides: [
+        {
+            // Your TypeScript files extension
+            files: ['*.ts', '*.tsx'],
+            extends: ['plugin:@typescript-eslint/recommended'],
+            parserOptions: {
+                // This option allows you to provide a path to your project's tsconfig.json.
+                // This setting is required if you want to use rules which require type information.
+                project: './tsconfig.json'
+            }
+        }
+    ],
     // add your custom rules here
     rules: {
         'prettier/prettier': 'error',

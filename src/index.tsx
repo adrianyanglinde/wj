@@ -3,10 +3,10 @@ import 'core-js/es/map';
 import 'core-js/es/set';
 import React from 'react';
 import { render } from 'react-dom';
-import CounterContainer from './container/CounterContainer';
 import 'lodash';
 import '@sass/common.scss';
 
+import CounterContainer from '@containers/Counter';
 import Text from '@components/Text';
 import Counter from '@components/Counter';
 

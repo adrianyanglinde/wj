@@ -67,11 +67,12 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: ['.js', '.json', '.ts', '.tsx'],
+        extensions: ['.js', '.json', '.ts', '.tsx', '.scss', '.sass'],
         alias: {
             '@': paths.appSrc,
             '@pages': paths.resolveSrc('pages'),
             '@components': paths.resolveSrc('components'),
+            '@containers': paths.resolveSrc('containers'),
             '@assets': paths.resolvePublic('assets'),
             '@sass': paths.resolvePublic('sass')
         }

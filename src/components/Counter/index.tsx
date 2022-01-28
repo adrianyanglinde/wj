@@ -1,14 +1,18 @@
 import React from 'react';
-import CounterContainer from '../../container/CounterContainer';
+import CounterContainer from '@containers/Counter';
 import './style.scss';
 
-const Counter = () => {
+const Counter: React.FC = () => {
     const counter = CounterContainer.useContainer();
     return (
         <div>
-            <button onClick={counter.decrement}>-</button>
+            <button className="button-dec" onClick={counter.decrement}>
+                -
+            </button>
             <span>{counter.count}</span>
-            <button onClick={counter.increment}>+</button>
+            <button className="button-inc" onClick={counter.increment}>
+                +
+            </button>
         </div>
     );
 };
