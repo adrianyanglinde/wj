@@ -6,19 +6,23 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // Webpack uses `publicPath` to determine where the app is being served from.
-// In development, we always serve from the root. This makes config easier.
 // It requires a trailing slash, or the file assets will get an incorrect path.
-const publicPath = './';
+const publicPath = '.';
 
 module.exports = merge(common, {
     mode: 'production',
+
     output: {
         path: paths.appBuild,
-        filename: '[name].bundle.js',
+        filename: 'js/[name].bundle.js',
         //The publicPath will be used within our server script as well in order to make sure files are served correctly on http://localhost:3000.
         //TODO: packed url can replace by CDN
         publicPath: publicPath
     },
+
+    //which maps your compiled code back to your original source code
+    devtool: false,
+
     module: {
         rules: [
             {
@@ -27,8 +31,8 @@ module.exports = merge(common, {
                     {
                         loader: ExtractCssChunks.loader
                     },
-                    'css-loader',
-                    'sass-loader'
+                    require.resolve('css-loader'),
+                    require.resolve('sass-loader')
                 ]
             }
         ]
@@ -37,8 +41,8 @@ module.exports = merge(common, {
         new ExtractCssChunks({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: '[name].[hash].css',
-            chunkFilename: '[name].[hash].css'
+            filename: 'css/[name].[hash].css',
+            chunkFilename: 'css/[name].[hash].css'
         }),
         new CleanWebpackPlugin()
     ],

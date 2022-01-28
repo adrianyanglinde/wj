@@ -12,8 +12,14 @@
         "baseUrl": "./",
         // lets you declare how TypeScript should resolve an import in your require/imports.
         "paths": {
+            "@api/*": ["src/api/*"],
+            "@utils/*": ["src/utils/*"],
+            "@pages/*": ["src/pages/*"],
+            "@model/*": ["src/model/*"],
             "@components/*": ["src/components/*"],
-            "@containers/*": ["src/containers/*"]
+            "@containers/*": ["src/containers/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@server/*": ["src/server/*"]
         }
     },
     "include": ["src", "public"],

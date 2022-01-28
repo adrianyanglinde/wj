@@ -2,8 +2,19 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common');
 const paths = require('./paths');
 
+// Webpack uses `publicPath` to determine where the app is being served from.
+// In development, we always serve from the root. This makes config easier.
+const publicPath = '/';
+
 module.exports = merge(common, {
     mode: 'development',
+
+    output: {
+        path: paths.appBuild,
+        filename: '[name].bundle.js',
+        //The publicPath will be used within our server script as well in order to make sure files are served correctly on http://localhost:3000.
+        publicPath: publicPath
+    },
 
     //which maps your compiled code back to your original source code
     devtool: 'inline-source-map',
@@ -29,11 +40,5 @@ module.exports = merge(common, {
         },
         //HMR  It allows all kinds of modules to be updated at runtime without the need for a full refresh.
         hot: true //open Hot Module Replacement
-    },
-    output: {
-        path: paths.appBuild,
-        filename: '[name].bundle.js',
-        //The publicPath will be used within our server script as well in order to make sure files are served correctly on http://localhost:3000.
-        publicPath: '/' //TODO: packed url can replace by CDN
     }
 });

@@ -48,5 +48,6 @@ module.exports = {
     appImages: resolveApp('public/assets/images'),
     appSass: resolveApp('public/sass'),
     appScripts: resolveApp('scripts'),
-    ...resolves
+    ...resolves,
+    moduleFileExtensions
 };
