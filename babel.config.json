@@ -18,11 +18,26 @@
                 "useBuiltIns": "usage",
                 // with useBuiltIns: 'usage' option only polyfills stable features,
                 // but you can enable polyfilling of proposals by proposals option
-                "corejs": { "version": "3.20", "proposals": true }
+                "corejs": { "version": 3, "proposals": true }
             }
         ],
         "@babel/preset-react",
         "@babel/preset-typescript"
     ],
-    "plugins": ["@babel/plugin-transform-runtime"]
+    "plugins": [
+        [
+            // A plugin that enables the re-use of Babel's injected helper code to save on codesize.
+            // all of the helpers will reference the module @babel/runtime to avoid duplication across your compiled output.
+            // The runtime will be compiled into your build
+            "@babel/plugin-transform-runtime",
+            {
+                "corejs": {
+                    "version": 3,
+                    "proposals": true
+                },
+                "helpers": true,
+                "regenerator": true
+            }
+        ]
+    ]
 }

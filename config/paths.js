@@ -37,6 +37,11 @@ const resolves = {
     resolvePublic
 };
 
+// Webpack uses `publicPath` to determine where the app is being served from.
+// In development, we always serve from the root. This makes config easier.
+// It requires a trailing slash, or the file assets will get an incorrect path.
+const publicPath = process.env.NODE_ENV === 'development' ? '/' : '.';
+
 module.exports = {
     appPath: resolveApp('.'),
     appSrc: resolveSrc('.'),
@@ -49,5 +54,6 @@ module.exports = {
     appSass: resolveApp('public/sass'),
     appScripts: resolveApp('scripts'),
     ...resolves,
-    moduleFileExtensions
+    moduleFileExtensions,
+    publicPath
 };

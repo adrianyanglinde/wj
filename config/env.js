@@ -5,7 +5,7 @@ if (!NODE_ENV) {
     throw new Error('The NODE_ENV environment variable is required but was not specified.');
 }
 
-function getClientEnvironment() {
+function getClientEnvironment(publicUrl) {
     const raw = Object.keys(process.env).reduce(
         (env, key) => {
             env[key] = process.env[key];
@@ -19,7 +19,8 @@ function getClientEnvironment() {
             // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
             // This should only be used as an escape hatch. Normally you would put
             // images into the `src` and `import` them in code to get their paths.
-            // PUBLIC_URL: publicUrl
+            PUBLIC_URL: publicUrl,
+            // Mock
             MOCK: findParam('isMock') || process.env.NODE_ENV === 'development'
         }
     );
@@ -34,4 +35,4 @@ function getClientEnvironment() {
     return { raw, stringified };
 }
 
-module.exports = getClientEnvironment();
+module.exports = getClientEnvironment;
