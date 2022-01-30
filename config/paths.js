@@ -20,6 +20,23 @@ const moduleFileExtensions = [
     'jsx'
 ];
 
+function ensureSlash(inputPath, needsSlash) {
+    const hasSlash = inputPath.endsWith('/');
+    if (hasSlash && !needsSlash) {
+        return inputPath.substr(0, inputPath.length - 1);
+    } else if (!hasSlash && needsSlash) {
+        return `${inputPath}/`;
+    } else {
+        return inputPath;
+    }
+}
+
+const getServedPath = (appPackageJson) => {
+    const homepage = require(appPackageJson).homepage;
+    const servedUrl = homepage || '/';
+    return ensureSlash(servedUrl, true);
+};
+
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {
     const extension = moduleFileExtensions.find((extension) => fs.existsSync(resolveFn(`${filePath}.${extension}`)));
@@ -37,23 +54,18 @@ const resolves = {
     resolvePublic
 };
 
-// Webpack uses `publicPath` to determine where the app is being served from.
-// In development, we always serve from the root. This makes config easier.
-// It requires a trailing slash, or the file assets will get an incorrect path.
-const publicPath = process.env.NODE_ENV === 'development' ? '/' : '.';
-
 module.exports = {
     appPath: resolveApp('.'),
     appSrc: resolveSrc('.'),
     appBuild: resolveApp('build'),
     appPublic: resolvePublic('.'),
-    appHtml: resolveApp('public/index.tpl.html'),
+    appHtml: resolveApp('public/index.ejs'),
     appIndexJs: resolveModule(resolveApp, 'src/index'),
     appPackageJson: resolveApp('package.json'),
     appImages: resolveApp('public/assets/images'),
     appSass: resolveApp('public/sass'),
     appScripts: resolveApp('scripts'),
+    servedPath: getServedPath(resolveApp('package.json')),
     ...resolves,
-    moduleFileExtensions,
-    publicPath
+    moduleFileExtensions
 };

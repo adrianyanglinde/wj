@@ -1,6 +1,16 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
 const paths = require('./paths');
+const proxyConfig = require('./proxy.config');
+
+// Webpack uses `publicPath` to determine where the app is being served from.
+// In development, we always serve from the root. This makes config easier.
+const publicPath = '/';
+
+// `publicUrl` is just like `publicPath`, but we will provide it to our app
+// as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
+// Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
+const publicUrl = '';
 
 module.exports = merge(common, {
     mode: 'development',
@@ -9,7 +19,7 @@ module.exports = merge(common, {
         path: paths.appBuild,
         filename: '[name].bundle.js',
         //The publicPath will be used within our server script as well in order to make sure files are served correctly on http://localhost:3000.
-        publicPath: paths.publicPath
+        publicPath: publicPath
     },
 
     //which maps your compiled code back to your original source code
@@ -35,19 +45,7 @@ module.exports = merge(common, {
         compress: true,
         host: 'localhost',
         port: 7000,
-        proxy: {
-            '/openapiv2': {
-                // 路径中有 /api 的请求都会走这个代理 , 可以自己定义一个,下面移除即可
-                target: 'http://m.4399api.com', // 目标代理接口地址,实际跨域要访问的接口,这个地址会替换掉 axios.defaults.baseURL
-                secure: false,
-                changeOrigin: true, // 开启代理，在本地创建一个虚拟服务端
-                ws: true, // 是否启用  websockets;
-                pathRewrite: {
-                    // 去掉 路径中的  /api  的这一截
-                    //"^/openapiv2": ""
-                }
-            }
-        },
+        proxy: proxyConfig,
         //HMR  It allows all kinds of modules to be updated at runtime without the need for a full refresh.
         hot: true //open Hot Module Replacement
     }

@@ -4,21 +4,16 @@
  */
 
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 生成html文件
-const { META, title } = require('./ejs');
 const paths = require('./paths');
 
 const htmlArr = [];
 function createHtml() {
     htmlArr.push(
         new HtmlWebpackPlugin({
-            inject: false,
-            title: title.im,
-            meta: {
-                ...META.common,
-                ...META.wap
-            },
             chunks: [`index`], // 引入的js
-            template: paths.resolvePublic('index.ejs'),
+            title: 'wj',
+            template: paths.appHtml,
+            favicon: paths.resolvePublic('favicon.ico'),
             filename: 'index.html', // html位置
             minify: {
                 removeComments: true,

@@ -1,12 +1,13 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const createHtml = require('./getWebpackHtmlPlugins');
 
+// Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.NODE_ENV === 'development';
+
 // Get environment variables to inject into our app.
-const env = getClientEnvironment(paths.publicPath);
+const env = getClientEnvironment();
 
 module.exports = {
     entry: {
@@ -51,7 +52,7 @@ module.exports = {
                             limit: 8192,
                             esModule: false,
                             //url relative to output publicPath
-                            name: './images/[name]_[hash:7].[ext]'
+                            name: 'images/[name]_[hash:7].[ext]'
                         }
                     }
                 ]
@@ -61,21 +62,10 @@ module.exports = {
     plugins: [
         // This is especially useful for webpack bundles that include a hash in the filename
         // which changes every compilation
-        new HtmlWebpackPlugin({
-            template: paths.appHtml,
-            inject: 'body',
-            filename: './index.html'
-            // favicon: paths.resolvePublic('favicon.ico')
-        }),
+        ...createHtml(),
         new webpack.HotModuleReplacementPlugin(),
         // The DefinePlugin replaces variables in your code with other values or expressions at compile time.
         new webpack.DefinePlugin(env.stringified),
-        // Then you can use %NODE_ENV% in your template html file, and you can use it with html-webpack-plugin's default template syntax
-        // Makes some environment variables available in index.html.
-        // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
-        // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-        // In development, this will be an empty string.
-        new InterpolateHtmlPlugin(env.raw),
         // The ProvidePlugin makes a package available as a variable in every module compiled through webpack.
         new webpack.ProvidePlugin({
             _: 'lodash'
