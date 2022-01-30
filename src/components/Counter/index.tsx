@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CounterContainer from '@containers/Counter';
 import './style.scss';
 import engine from '@server/rule-engine';
@@ -23,6 +23,10 @@ const Counter: React.FC = () => {
     engine.run(facts).then(({ events }) => {
         events.map((event) => console.log(event.params.message));
     });
+
+    useEffect(() => {
+        counter.getTest();
+    }, []);
 
     return (
         <div>
