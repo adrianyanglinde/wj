@@ -1,5 +1,4 @@
-import axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
-// import Cookies from 'js-cookie';
+import Axios, { AxiosRequestConfig, Method, AxiosResponse } from 'axios';
 
 interface IResponse {
     c?: number;
@@ -36,40 +35,37 @@ function checkStatus(response: AxiosResponse<IResponse>) {
     const errortext = codeMessage[response.status] || response.statusText;
     if (response.status !== 401) {
         console.log({
-            message: `请求错误 ${response.status}: ${response.url}`,
+            message: `请求错误 ${response.status}: ${response.request.responseURL}`,
             description: errortext
         });
     }
     const error = new Error(errortext);
-    // error.name = response.status;
-    // error.response = response;
+    (error as any)._status = response.status;
+    (error as any)._response = response;
     throw error;
 }
 
-// 设置axios的返回拦截(超时)
-axios.interceptors.response.use(
+Axios.interceptors.response.use(
     (response) => {
+        const {
+            data: { c, e }
+        } = response;
+        if (c !== 0) {
+            const error = new Error(e);
+            (error as any)._code = c;
+            (error as any)._response = response;
+            return Promise.reject(error);
+        }
         return response;
     },
     (error) => {
-        if (error.message.includes('timeout')) {
-            return Promise.reject(error); // reject这个错误信息
-        } // 判断请求异常信息中是否含有超时timeout字符串
+        checkStatus(error.response);
         return Promise.reject(error);
     }
 );
 
 async function request(method: Method = 'get', url: string, params = {}) {
-    // try {
-    //     let token = Cookies.get('Authorization');
-    //     if (token) {
-    //         axios.defaults.headers.common['Authorization'] = JSON.parse(token);
-    //     }
-    //     // axios.defaults.headers.common["Cookie"] = '';
-    // } catch (e) {
-    //     console.error(e);
-    // }
-    const options: AxiosRequestConfig<any> = {
+    const options: AxiosRequestConfig = {
         url: url,
         method: method,
         // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
@@ -85,41 +81,24 @@ async function request(method: Method = 'get', url: string, params = {}) {
         options.params = { ...params };
     }
     try {
-        const response = await axios(options);
-        const responseReal = await checkStatus(response);
-        return responseReal.data;
+        const response = await Axios(options);
+        return response.data;
     } catch (error) {
-        // if (!Cookies.get('currentHistory')) {
-        // Cookies.set('currentHistory', window.location.href);
-        // }
-        // try {
-        //     let status = error.response.status;
-        //     if (status === 401) {
-        //         // token过期
-        //         // window.redirectToLoginPage();
-        //     }
-        //     if (status === 403) {
-        //         router.push('/exception/403');
-        //         return;
-        //     }
-        //     if (status <= 504 && status >= 500) {
-        //         router.push('/exception/500');
-        //         return;
-        //     }
-        //     if (status >= 404 && status < 422) {
-        //         router.push('/exception/404');
-        //     }
-        // } catch {
-        //     router.push('/exception/404');
-        // }
-        // return { code: -500 };
+        const status = error._status || error._code;
+        console.log('status', status);
+        // some route
     }
 }
 
-export function get(url: string, params?: unknown): Promise<IResponse> {
+export function get(url: string, params?: unknown): Promise<void | IResponse> | string {
     return request('get', url, params);
 }
 
-export function post(url: string, params?: unknown): Promise<IResponse> {
+export function post(url: string, params?: unknown): Promise<void | IResponse> | string {
     return request('post', url, params);
 }
+
+// ref:
+// https://segmentfault.com/a/1190000038563075
+// https://medium.com/neyasistechnology/react-handling-errors-with-axios-interceptor-and-redux-6e523fda3706
+// https://www.jianshu.com/p/17d9e5db7a31

@@ -37,6 +37,7 @@ const Counter: React.FC = () => {
             <button className="button-inc" onClick={counter.increment}>
                 +
             </button>
+            <div>data: {counter.data?.name}</div>
         </div>
     );
 };

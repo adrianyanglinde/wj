@@ -10,13 +10,16 @@ import React from 'react';
 import { render } from 'react-dom';
 import 'lodash';
 import '@sass/common.scss';
+if (process.env.MOCK) {
+    require('@api/mock');
+}
 
 import CounterContainer from '@containers/Counter';
 import Text from '@components/Text';
 import Counter from '@components/Counter';
 
 render(
-    <CounterContainer.Provider initialState={2}>
+    <CounterContainer.Provider>
         <Text />
         <Counter />
     </CounterContainer.Provider>,
