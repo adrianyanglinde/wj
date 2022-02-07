@@ -21,7 +21,9 @@ function getClientEnvironment(publicUrl) {
             // images into the `src` and `import` them in code to get their paths.
             // PUBLIC_URL: publicUrl,
             // Mock
-            MOCK: findParam('isMock') || process.env.NODE_ENV === 'development'
+            MOCK: findParam('isMock') || process.env.NODE_ENV === 'development',
+            // is wap?
+            WAP: process.env.APP_TERMINAL === 'wap'
         }
     );
     // Stringify all values so we can feed into Webpack DefinePlugin
