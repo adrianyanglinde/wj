@@ -9,8 +9,6 @@ const shouldUseSourceMap = process.env.NODE_ENV === 'development';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment();
 
-console.log('APP_TERMINAL:', process.env.APP_TERMINAL);
-
 module.exports = {
     entry: {
         index: paths.appIndexJs

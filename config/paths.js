@@ -57,7 +57,7 @@ const resolves = {
 module.exports = {
     appPath: resolveApp('.'),
     appSrc: resolveSrc('.'),
-    appBuild: resolveApp('build'),
+    appBuild: resolveApp(`build/${process.env.APP_TERMINAL}`),
     appPublic: resolvePublic('.'),
     appHtml: resolveApp('public/index.ejs'),
     appIndexJs: resolveModule(resolveApp, 'src/index'),

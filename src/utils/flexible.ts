@@ -1,6 +1,6 @@
 (function flexible(window, document) {
-    var docEl = document.documentElement;
-    var dpr = window.devicePixelRatio || 1;
+    const docEl = document.documentElement;
+    const dpr = window.devicePixelRatio || 1;
 
     // adjust body font size
     function setBodyFontSize() {
@@ -14,7 +14,7 @@
 
     // set 1rem = viewWidth / 10
     function setRemUnit() {
-        var rem = docEl.clientWidth / 10;
+        const rem = window.screen.width / 10;
         if (window.orientation === 90 || window.orientation === -90) {
             docEl.style.fontSize = rem * (72 / 128) + 'px';
         } else {
@@ -34,8 +34,8 @@
 
     // detect 0.5px supports
     if (dpr >= 2) {
-        var fakeBody = document.createElement('body');
-        var testElement = document.createElement('div');
+        const fakeBody = document.createElement('body');
+        const testElement = document.createElement('div');
         testElement.style.border = '.5px solid transparent';
         fakeBody.appendChild(testElement);
         docEl.appendChild(fakeBody);
@@ -46,3 +46,4 @@
     }
 })(window, document);
 
+export default {};

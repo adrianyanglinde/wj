@@ -4,10 +4,12 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "prod": "cross-env NODE_ENV=production webpack --hot --inline --progress --config config/webpack.prod.js",
-        "dev:pc": "cross-env NODE_ENV=development APP_TERMINAL=pc webpack-dev-server --hot --inline --progress --config config/webpack.dev.js",
-        "dev:wap": "cross-env NODE_ENV=development APP_TERMINAL=wap webpack-dev-server --hot --inline --progress --config config/webpack.dev.js",
-        "sprite": "node scripts/webpack.sprite.js",
+        "prod:pc": "cross-env NODE_ENV=production APP_TERMINAL=pc webpack --inline --progress --config config/webpack.prod.js",
+        "prod:wap": "cross-env NODE_ENV=production APP_TERMINAL=wap webpack --inline --progress --config config/webpack.prod.js",
+        "dev:pc": "cross-env NODE_ENV=development APP_TERMINAL=pc webpack-dev-server --inline --progress --config config/webpack.dev.js",
+        "dev:wap": "cross-env NODE_ENV=development APP_TERMINAL=wap webpack-dev-server --inline --progress --config config/webpack.dev.js",
+        "sprite:pc": "node scripts/webpack.sprite.js --type=pc",
+        "sprite:wap": "node scripts/webpack.sprite.js --type=wap",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",

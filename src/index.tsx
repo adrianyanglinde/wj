@@ -6,22 +6,25 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { render } from 'react-dom';
 import 'lodash';
-import '@sass/common.scss';
-if (process.env.MOCK) {
-    require('@api/mock');
-}
-
+// import IndexPC from '@pages/pc/Index';
+// import IndexWAP from '@pages/wap/Index';
 import CounterContainer from '@containers/Counter';
-import Text from '@components/Text';
-import Counter from '@components/Counter';
+if (process.env.MOCK) {
+    import('@api/mock');
+}
+if (process.env.WAP) {
+    import('@utils/flexible');
+}
+const Index = lazy(() => import(`@pages/${process.env.APP_TERMINAL}/Index`));
 
 render(
-    <CounterContainer.Provider>
-        <Text />
-        <Counter />
-    </CounterContainer.Provider>,
+    <Suspense fallback={'加载中...'}>
+        <CounterContainer.Provider>
+            <Index />
+        </CounterContainer.Provider>
+    </Suspense>,
     document.getElementById('root')
 );
