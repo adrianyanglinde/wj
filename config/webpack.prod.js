@@ -25,6 +25,7 @@ module.exports = merge(common, {
     output: {
         path: paths.appBuild,
         filename: 'js/[name].bundle.js',
+        chunkFilename: 'js/[name].chunk.js',
         //The publicPath will be used within our server script as well in order to make sure files are served correctly on http://localhost:3000.
         //TODO: packed url can replace by CDN
         publicPath: publicPath
@@ -70,13 +71,31 @@ module.exports = merge(common, {
                 { from: paths.resolvePublic('favicon.ico'), to: paths.appBuild }
             ]
         })
+        // new BundleAnalyzerPlugin()
     ],
     optimization: {
         splitChunks: {
+            chunks: 'all',
+            minSize: 30000,
+            maxSize: 0,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
             cacheGroups: {
-                commons: {
+                // Create a custom vendor chunk, which contains certain node_modules packages
+                react: {
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    name: 'react',
+                    priority: -9,
+                    chunks: 'all'
+                },
+                // Create a vendors chunk, which includes all code from node_modules in the whole application.
+                vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
+                    priority: -10,
                     chunks: 'all'
                 }
             }

@@ -3,7 +3,7 @@ import Counter from '@components/Counter';
 import './style.scss';
 
 const Index: React.FC = () => {
-    console.log('pc index');
+    console.log('wap index');
     return (
         <div className="index-wap">
             <Counter />

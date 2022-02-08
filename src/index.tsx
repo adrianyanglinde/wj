@@ -9,9 +9,8 @@ import 'regenerator-runtime/runtime';
 import React, { lazy, Suspense } from 'react';
 import { render } from 'react-dom';
 import 'lodash';
-// import IndexPC from '@pages/pc/Index';
-// import IndexWAP from '@pages/wap/Index';
 import CounterContainer from '@containers/Counter';
+// import Index from '@pages/wap/Index';
 if (process.env.MOCK) {
     import('@api/mock');
 }
@@ -21,7 +20,7 @@ if (process.env.WAP) {
 const Index = lazy(() => import(`@pages/${process.env.APP_TERMINAL}/Index`));
 
 render(
-    <Suspense fallback={'加载中...'}>
+    <Suspense fallback={'loading...'}>
         <CounterContainer.Provider>
             <Index />
         </CounterContainer.Provider>
