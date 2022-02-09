@@ -2,9 +2,12 @@ const webpack = require('webpack');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const createHtml = require('./getWebpackHtmlPlugins');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.NODE_ENV === 'development';
+const shouldUseSourceMap = isDevelopment;
 
 // Get environment variables to inject into our app.
 const env = getClientEnvironment();
@@ -19,7 +22,11 @@ module.exports = {
                 test: /\.(tsx|ts|jsx|js)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: require.resolve('babel-loader')
+                    loader: require.resolve('babel-loader'),
+                    options: {
+                        // An EXPERIMENTAL Webpack plugin to enable "Fast Refresh" (also known as Hot Reloading) for React components.
+                        plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean)
+                    }
                 }
             },
             {
@@ -69,8 +76,10 @@ module.exports = {
         // The ProvidePlugin makes a package available as a variable in every module compiled through webpack.
         new webpack.ProvidePlugin({
             _: 'lodash'
-        })
-    ],
+        }),
+        // An EXPERIMENTAL Webpack plugin to enable "Fast Refresh" (also known as Hot Reloading) for React components.
+        isDevelopment && new ReactRefreshWebpackPlugin()
+    ].filter(Boolean),
     resolve: {
         extensions: ['.js', '.json', '.ts', '.tsx', '.scss', '.sass'],
         alias: {

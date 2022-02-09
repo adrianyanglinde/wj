@@ -1,0 +1,12 @@
+@import '~@sass/wap/mixin';
+
+.button {
+    &-dec {
+        @include sprite-icons;
+        @include arr_2;
+    }
+    &-inc {
+        @include sprite-icons;
+        @include arr_1;
+    }
+}

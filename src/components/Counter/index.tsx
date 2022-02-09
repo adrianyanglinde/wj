@@ -5,11 +5,7 @@ import engine from '@server/rule-engine';
 
 const Counter: React.FC = () => {
     const counter = CounterContainer.useContainer();
-    if (process.env.MOCK) {
-        console.log('mock');
-    } else {
-        console.log('nomock');
-    }
+
     /**
      * Define facts the engine will use to evaluate the conditions above.
      * Facts may also be loaded asynchronously at runtime; see the advanced example below
