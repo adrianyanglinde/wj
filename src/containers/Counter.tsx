@@ -3,8 +3,8 @@ import { createContainer } from 'unstated-next';
 import { get } from '@api/request';
 import urls from '@api/urls';
 
-function useCounter() {
-    const [count, setCount] = useState(2);
+function useCounter(initialState = 0) {
+    const [count, setCount] = useState(initialState);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState({});
     const decrement = () => setCount(count - 1);
@@ -13,7 +13,7 @@ function useCounter() {
         try {
             setLoading(true);
             const data = await get(urls.testApi);
-            // setData(data?.d);
+            setData(data?.d);
             console.log(data);
             setLoading(false);
         } catch (error) {

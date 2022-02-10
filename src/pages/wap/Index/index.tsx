@@ -1,16 +1,17 @@
 import React from 'react';
+import CounterContainer from '@containers/Counter';
 import Counter from '@components/Counter';
-import CounterState from '@components/CounterState';
 import './style.scss';
 
 const Index: React.FC = () => {
     console.log('wap index');
     return (
-        <div className="index-wap">
-            哈5
-            <Counter />
-            <CounterState />
-        </div>
+        <CounterContainer.Provider>
+            <div className="index-wap">
+                哈2
+                <Counter />
+            </div>
+        </CounterContainer.Provider>
     );
 };
 

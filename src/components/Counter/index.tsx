@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import CounterContainer from '@containers/Counter';
 import './style.scss';
 import engine from '@server/rule-engine';
+import { useContainer } from 'unstated-next';
 
 const Counter: React.FC = () => {
-    const counter = CounterContainer.useContainer();
+    const counter = useContainer(CounterContainer);
 
     /**
      * Define facts the engine will use to evaluate the conditions above.

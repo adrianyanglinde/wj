@@ -9,7 +9,7 @@ import 'regenerator-runtime/runtime';
 import React, { lazy, Suspense } from 'react';
 import { render } from 'react-dom';
 import 'lodash';
-import CounterContainer from '@containers/Counter';
+
 // import Index from '@pages/wap/Index';
 if (process.env.MOCK) {
     import('@api/mock');
@@ -21,9 +21,7 @@ const Index = lazy(() => import(`@pages/${process.env.APP_TERMINAL}/Index`));
 
 render(
     <Suspense fallback={'loading...'}>
-        <CounterContainer.Provider>
-            <Index />
-        </CounterContainer.Provider>
+        <Index />
     </Suspense>,
     document.getElementById('root')
 );
