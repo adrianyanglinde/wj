@@ -16,12 +16,6 @@
         "release-patch": "standard-version --release-as patch",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "standard-version": {
-        "skip": {
-            "tag": true,
-            "commit": true
-        }
-    },
     "author": "",
     "license": "ISC",
     "devDependencies": {

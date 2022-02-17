@@ -1,4 +1,8 @@
 module.exports = {
+    skip: {
+        tag: true,
+        commit: true
+    },
     types: [
         { type: 'feat', section: '✨ Features | 新功能' },
         { type: 'fix', section: '🐛 Bug Fixes | Bug 修复' },
