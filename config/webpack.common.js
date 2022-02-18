@@ -75,7 +75,8 @@ module.exports = {
         new webpack.DefinePlugin(env.stringified),
         // The ProvidePlugin makes a package available as a variable in every module compiled through webpack.
         new webpack.ProvidePlugin({
-            _: 'lodash'
+            _: 'lodash',
+            classnames: 'classnames'
         }),
         // An EXPERIMENTAL Webpack plugin to enable "Fast Refresh" (also known as Hot Reloading) for React components.
         isDevelopment && new ReactRefreshWebpackPlugin()

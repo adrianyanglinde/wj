@@ -25,13 +25,15 @@ module.exports = {
         'prettier/prettier': 'error',
         // allow async-await
         'generator-star-spacing': 'off',
-        '@typescript-eslint/no-var-requires': 0
+        '@typescript-eslint/no-var-requires': 0,
+        '@typescript-eslint/no-empty-function': 0
     },
     globals: {
         document: true,
         window: true,
         require: true,
-        _: true
+        _: true,
+        classnames: true
     },
     settings: {
         // 'import/resolver': {

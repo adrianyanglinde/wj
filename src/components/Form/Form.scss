@@ -1,0 +1,95 @@
+
+.form {
+    &-item {
+        min-height: 56px;
+        overflow: hidden;
+        
+        &-label {
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: right;
+            vertical-align: middle;
+            width: 86px;
+            float: left;
+            & > label {
+                position: relative;
+                line-height: 32px;
+                height: 32px;
+                &::after {
+                    content: ':';
+                    position: relative;
+                    top: -0.5px;
+                    margin: 0 8px 0 2px;
+                }
+                &.form-item-required::before {
+                    display: inline-block;
+                    margin-right: 4px;
+                    color: #ff4d4f;
+                    font-size: 14px;
+                    font-family: SimSun, sans-serif;
+                    line-height: 1;
+                    content: '*';
+                }
+            }
+        }
+        &-control {
+            width: 240px;
+            float: left;
+            &-input {
+                position: relative;
+            }
+        }
+        &-error {
+            clear: both;
+            min-height: 24px;
+            color: #ff4d4f;
+            line-height: 1.5715;
+            transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        &-text {
+            float: left;
+            line-height: 32px;
+            width: 240px;
+            @include ellipsis;
+        }
+        &-has {
+            &-feedback {
+                .input-suffix-wrapper{
+                    width: 240px;
+                }
+                .input-suffix-wrapper-clear{
+                    padding-right: 40px;
+                }
+                .input-suffix{
+                    right: 27px;
+                }
+            }
+            &-warning {
+                .form-item-children-icon {
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    z-index: 1;
+                    width: 32px;
+                    height: 20px;
+                    margin-top: -8px;
+                    font-size: 14px;
+                    line-height: 20px;
+                    text-align: center;
+                    visibility: visible;
+                    -webkit-animation: zoomIn 0.3s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+                    animation: zoomIn 0.3s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+                    pointer-events: none;
+                }
+            }
+            &-warning {
+                .form-item-children-icon {
+                    color: #faad14;
+                }
+            }
+        }
+        
+    }
+}
+
+

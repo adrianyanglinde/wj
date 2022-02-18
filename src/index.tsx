@@ -9,6 +9,7 @@ import 'regenerator-runtime/runtime';
 import React, { lazy, Suspense } from 'react';
 import { render } from 'react-dom';
 import 'lodash';
+import 'classnames';
 
 // import Index from '@pages/wap/Index';
 if (process.env.MOCK) {
