@@ -47,6 +47,9 @@ module.exports = merge(common, {
         port: 7000,
         proxy: proxyConfig,
         //HMR  It allows all kinds of modules to be updated at runtime without the need for a full refresh.
-        hot: true //open Hot Module Replacement
+        hot: true, //open Hot Module Replacement
+        // With devServer.quiet enabled, nothing except the initial startup information will be written to the console.
+        // This also means that errors or warnings from webpack are not visible.
+        quiet: true
     }
 });

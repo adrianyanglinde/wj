@@ -19,7 +19,8 @@
             "@components/*": ["src/components/*"],
             "@containers/*": ["src/containers/*"],
             "@hooks/*": ["src/hooks/*"],
-            "@server/*": ["src/server/*"]
+            "@server/*": ["src/server/*"],
+            "@assets/*": ["public/assets/*"]
         }
     },
     "include": ["src", "public"],

@@ -1,9 +1,9 @@
+@import '~@sass/pc/mixin';
 
 .form {
     &-item {
         min-height: 56px;
         overflow: hidden;
-        
         &-label {
             overflow: hidden;
             white-space: nowrap;
@@ -50,17 +50,17 @@
             float: left;
             line-height: 32px;
             width: 240px;
-            @include ellipsis;
+            @include text-ellipse;
         }
         &-has {
             &-feedback {
-                .input-suffix-wrapper{
+                .input-suffix-wrapper {
                     width: 240px;
                 }
-                .input-suffix-wrapper-clear{
+                .input-suffix-wrapper-clear {
                     padding-right: 40px;
                 }
-                .input-suffix{
+                .input-suffix {
                     right: 27px;
                 }
             }
@@ -88,8 +88,5 @@
                 }
             }
         }
-        
     }
 }
-
-

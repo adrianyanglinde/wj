@@ -11,12 +11,12 @@
     box-sizing: border-box;
 }
 @mixin input-border-lighted {
-    @include border-skin(input_border_lighted);
+    border: 1px solid #40a9ff;
     outline: 0;
 }
 @mixin input-focus {
     @include input-border-lighted;
-    @include shadow-skin(input_border_lighted_shadow);
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
 }
 @mixin input-hover {
     @include input-border-lighted;
@@ -46,6 +46,11 @@
             }
             &-focused {
                 @include input-focus;
+            }
+            .input {
+                padding: 0;
+                border: none;
+                outline: none;
             }
         }
     }

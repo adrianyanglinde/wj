@@ -71,6 +71,7 @@
         "json-rules-engine": "^6.1.2",
         "lodash": "^4.17.21",
         "mockjs": "^1.1.0",
+        "rc-form": "^2.4.12",
         "react": "16.13.1",
         "react-dom": "16.13.1",
         "react-router-dom": "4.3.1",
