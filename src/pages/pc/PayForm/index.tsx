@@ -73,7 +73,7 @@ const PayForm: React.FC = () => {
     // };
 
     useEffect(() => {
-        console.log('outer', formRef?.current.form);
+        console.log('outer', formRef?.current);
     }, [formRef]);
 
     return (

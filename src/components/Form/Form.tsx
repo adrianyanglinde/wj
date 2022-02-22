@@ -1,28 +1,19 @@
-import React, { useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useEffect, useImperativeHandle, forwardRef, useState } from 'react';
 import { createForm } from 'rc-form';
 import { ctxRcForm } from './config';
 import './style.scss';
 
 interface IProp {
     children: any;
-    form?: any;
     ref: any;
-    formRef?: any;
 }
 
-const Form: React.FC<IProp> = (props) => {
-    const { children, form, formRef } = props;
+const InnerForm: React.FC<any> = (props) => {
+    const { children, getForm, form } = props;
     useEffect(() => {
         console.log('inner', form);
+        getForm(form);
     }, [form]);
-    useImperativeHandle(
-        formRef,
-        () => ({
-            form: form,
-            test: 'test'
-        }),
-        [form]
-    );
     return (
         <div>
             <ctxRcForm.Provider value={{ form }}>{children}</ctxRcForm.Provider>
@@ -30,10 +21,25 @@ const Form: React.FC<IProp> = (props) => {
     );
 };
 
-const RcForm = createForm()(Form);
+const RcForm = createForm()(InnerForm);
 
-const FormWithRef = forwardRef((props, ref) => {
-    return <RcForm formRef={ref} {...props} />;
-});
+const Form: React.FC<IProp> = (props, ref) => {
+    let formRef = null;
+    const getForm = (form) => {
+        console.log('111');
+        formRef = form;
+    };
+    useImperativeHandle(
+        ref,
+        () => ({
+            form: formRef,
+            test: 'test'
+        }),
+        [formRef]
+    );
+    return <RcForm getForm={getForm} {...props} />;
+};
+
+const FormWithRef = forwardRef(Form);
 
 export default FormWithRef;
