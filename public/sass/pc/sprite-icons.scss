@@ -1,0 +1,21 @@
+@mixin sprite-icons { background-image: url(~@assets/images/pc/sprite-icons.png); background-size: 94px 1168px; }
+@mixin icon1_h { width: 18px; height: 18px;background-position: 0px 0px; }
+@mixin icon1 { width: 18px; height: 18px;background-position: 0px -28px; }
+@mixin icon2_a { width: 18px; height: 18px;background-position: 0px -56px; }
+@mixin icon2 { width: 18px; height: 18px;background-position: 0px -84px; }
+@mixin icon-excel { width: 28px; height: 28px;background-position: 0px -112px; }
+@mixin icon-pdf { width: 28px; height: 28px;background-position: 0px -150px; }
+@mixin icon-tag { width: 26px; height: 29px;background-position: 0px -188px; }
+@mixin icon-t1_act { width: 60px; height: 60px;background-position: 0px -227px; }
+@mixin icon-t1_dis { width: 60px; height: 60px;background-position: 0px -297px; }
+@mixin icon-t1 { width: 60px; height: 60px;background-position: 0px -367px; }
+@mixin icon-t2_act { width: 60px; height: 60px;background-position: 0px -437px; }
+@mixin icon-t2_dis { width: 60px; height: 60px;background-position: 0px -507px; }
+@mixin icon-t2 { width: 60px; height: 60px;background-position: 0px -577px; }
+@mixin icon-t3_act { width: 60px; height: 60px;background-position: 0px -647px; }
+@mixin icon-t3_dis { width: 60px; height: 60px;background-position: 0px -717px; }
+@mixin icon-t3 { width: 60px; height: 60px;background-position: 0px -787px; }
+@mixin icon-t4_act { width: 60px; height: 60px;background-position: 0px -857px; }
+@mixin icon-t4_dis { width: 60px; height: 60px;background-position: 0px -927px; }
+@mixin icon-t4 { width: 60px; height: 60px;background-position: 0px -997px; }
+@mixin icon3 { width: 94px; height: 101px;background-position: 0px -1067px; }

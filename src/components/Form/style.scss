@@ -3,14 +3,12 @@
 .form {
     &-item {
         min-height: 56px;
-        overflow: hidden;
         &-label {
             overflow: hidden;
             white-space: nowrap;
-            text-align: right;
+
             vertical-align: middle;
-            width: 86px;
-            float: left;
+            line-height: 32px;
             & > label {
                 position: relative;
                 line-height: 32px;
@@ -33,18 +31,35 @@
             }
         }
         &-control {
-            width: 240px;
-            float: left;
             &-input {
                 position: relative;
             }
         }
-        &-error {
+        @mixin feedback {
             clear: both;
             min-height: 24px;
-            color: #ff4d4f;
-            line-height: 1.5715;
+            // line-height: 1.5715;
+            line-height: 24px;
             transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+            padding-left: 24px;
+            position: relative;
+            svg {
+                position: absolute;
+                left: 0;
+                top: 2px;
+            }
+        }
+        &-error {
+            @include feedback;
+            color: #ff4d4f;
+        }
+        &-warn {
+            @include feedback;
+            color: #faad14;
+        }
+        &-success {
+            @include feedback;
+            color: #52c41a;
         }
         &-text {
             float: left;
@@ -64,27 +79,36 @@
                     right: 27px;
                 }
             }
-            &-warning {
-                .form-item-children-icon {
-                    position: absolute;
-                    top: 50%;
-                    right: 0;
-                    z-index: 1;
-                    width: 32px;
-                    height: 20px;
-                    margin-top: -8px;
-                    font-size: 14px;
-                    line-height: 20px;
-                    text-align: center;
-                    visibility: visible;
-                    -webkit-animation: zoomIn 0.3s cubic-bezier(0.12, 0.4, 0.29, 1.46);
-                    animation: zoomIn 0.3s cubic-bezier(0.12, 0.4, 0.29, 1.46);
-                    pointer-events: none;
+            &-error {
+                .input {
+                    background: #fff;
+                    border-color: #ff4d4f;
                 }
             }
-            &-warning {
-                .form-item-children-icon {
-                    color: #faad14;
+            &-warn {
+                .input {
+                    background: #fff;
+                    border-color: #faad14;
+                }
+            }
+            &-success {
+                .input {
+                    background: #fff;
+                    border-color: #52c41a;
+                }
+            }
+        }
+    }
+    &-horizontal {
+        .form {
+            &-item {
+                &-label {
+                    float: left;
+                    width: 86px;
+                    text-align: right;
+                }
+                &-control {
+                    float: left;
                 }
             }
         }

@@ -38,12 +38,11 @@ const Input: React.FC<IProps> = (props) => {
         setFocused(false);
         onBlur(e);
     };
-    const handleClear = () => {
-        form?.setFieldsValue({ [name]: '' });
-        form?.validateFields([name]);
-        inputRef.current.focus();
-    };
-    // console.log('upperProps', props);
+    // const handleClear = () => {
+    //     form?.setFieldsValue({ [name]: '' });
+    //     form?.validateFields([name]);
+    //     inputRef.current.focus();
+    // };
     const input = (
         <input
             {..._.omit(props, ['allowclear', 'form'])}
@@ -53,35 +52,37 @@ const Input: React.FC<IProps> = (props) => {
             onBlur={handleBlur}
             autoComplete="off"
             type="text"
-            ref={inputRef}
         />
     );
-    const className = classnames({
-        'input-wrapper': true,
-        'input-wrapper-disabled': disabled,
-        'input-suffix-wrapper': true,
-        'input-suffix-wrapper-focused': focused,
-        'input-suffix-wrapper-clear': clearVisible
-    });
+    // const className = classnames({
+    //     'input-wrapper': true,
+    //     'input-wrapper-disabled': disabled,
+    //     'input-suffix-wrapper': true,
+    //     'input-suffix-wrapper-focused': focused,
+    //     'input-suffix-wrapper-clear': clearVisible
+    // });
     // useEffect(() => {
     //     if (!disabled) {
     //         setClearVisible(!!value);
     //     }
     // }, [value, disabled]);
-    return (
-        <div className={className}>
-            {input}
-            {allowclear && (
-                <div className="input-suffix">
-                    {clearVisible && (
-                        <span className="input-clear-icon-hidden input-clear-icon" onClick={handleClear}>
-                            {ClearIcon}
-                        </span>
-                    )}
-                </div>
-            )}
-        </div>
-    );
+    // return (
+    //     <div className={className}>
+    //         {input}
+    //         {allowclear && (
+    //             <div className="input-suffix">
+    //                 {clearVisible && (
+    //                     <span className="input-clear-icon-hidden input-clear-icon" onClick={handleClear}>
+    //                         {ClearIcon}
+    //                     </span>
+    //                 )}
+    //             </div>
+    //         )}
+    //     </div>
+    // );
+    return input;
 };
+
+Input.elementType = 'Input';
 
 export default Input;

@@ -30,7 +30,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.(sa|sc)ss$/,
+                test: /\.(sa|sc|c)ss$/,
                 use: [
                     {
                         loader: require.resolve('style-loader')

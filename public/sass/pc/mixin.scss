@@ -1,1 +1,27 @@
 @import '~@sass/mixin.scss';
+@import '~@sass/pc/sprite-icons.scss';
+
+@mixin input {
+    padding: 10px 15px;
+    font-size: 14px;
+    // line-height: 22px;
+    display: inline-block;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+@mixin input-border-lighted {
+    border: 1px solid #82d0ad;
+    outline: 0;
+}
+@mixin input-focus {
+    @include input-border-lighted;
+    // box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+@mixin input-hover {
+    @include input-border-lighted;
+}

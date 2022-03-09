@@ -37,7 +37,7 @@ module.exports = merge(common, {
     module: {
         rules: [
             {
-                test: /\.(sa|sc)ss$/,
+                test: /\.(sa|sc|c)ss$/,
                 use: [
                     {
                         loader: ExtractCssChunks.loader,

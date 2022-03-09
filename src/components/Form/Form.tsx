@@ -1,20 +1,26 @@
 import React, { useEffect, useImperativeHandle, forwardRef } from 'react';
 import { createForm } from 'rc-form';
-import { ctxRcForm } from './config';
 import './style.scss';
 
+export enum LAYOUT {
+    HORIZONTAL = 'horizontal',
+    VERTICAL = 'vertical'
+}
 interface IProp {
     children: any;
     form?: any;
     ref: any;
     formRef?: any;
+    layout?: LAYOUT.HORIZONTAL | LAYOUT.VERTICAL;
 }
+export const ctxRcForm = React.createContext(null);
 
 const Form: React.FC<IProp> = (props) => {
-    const { children, form, formRef } = props;
-    useEffect(() => {
-        console.log('inner', form);
-    }, [form]);
+    const { children, form, formRef, layout = LAYOUT.HORIZONTAL } = props;
+    // useEffect(() => {
+    //     console.log('inner', form);
+    // }, [form]);
+    const formClassName = classnames(['form', `form-${layout}`]);
     useImperativeHandle(
         formRef,
         () => ({
@@ -24,9 +30,9 @@ const Form: React.FC<IProp> = (props) => {
         [form]
     );
     return (
-        <div>
-            <ctxRcForm.Provider value={{ form }}>{children}</ctxRcForm.Provider>
-        </div>
+        <ctxRcForm.Provider value={{ form }}>
+            <div className={formClassName}>{children}</div>
+        </ctxRcForm.Provider>
     );
 };
 

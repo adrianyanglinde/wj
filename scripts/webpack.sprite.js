@@ -11,7 +11,7 @@ const type = findParam('type');
 const fileExists = fs.existsSync(`${paths.appImages}/${type}/${name}`);
 
 if (!name) {
-    shell.echo('请输入name页面名称及type（pc/wap）进行对应页面雪碧图生成');
+    shell.echo('请输入--name={文件夹名称}进行对应雪碧图生成');
     shell.exit();
 }
 if (!fileExists) {
