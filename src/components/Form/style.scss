@@ -80,19 +80,22 @@
                 }
             }
             &-error {
-                .input {
+                .input,
+                .kf-picker {
                     background: #fff;
                     border-color: #ff4d4f;
                 }
             }
             &-warn {
-                .input {
+                .input,
+                .kf-picker {
                     background: #fff;
                     border-color: #faad14;
                 }
             }
             &-success {
-                .input {
+                .input,
+                .kf-picker {
                     background: #fff;
                     border-color: #52c41a;
                 }

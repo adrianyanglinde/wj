@@ -1,5 +1,5 @@
 import React, { useContext, ReactChild } from 'react';
-import { ExclamationCircle, Warn } from '@assets/svg';
+import { ExclamationCircle, WarnIcon, ErrorIcon } from '@assets/svg';
 import { ctxRcForm } from './Form';
 import './style.scss';
 
@@ -10,6 +10,12 @@ interface IProp {
     required?: boolean;
     rules?: any;
     hidden?: boolean;
+}
+
+export enum ELEMENT_TYPE {
+    DARA_PICKER,
+    INPUT,
+    UPLOAD
 }
 
 const FormItem: React.FC<IProp> = (props) => {
@@ -28,48 +34,41 @@ const FormItem: React.FC<IProp> = (props) => {
         'form-item': true,
         [`form-item-has-${feedback.type}`]: !!feedback.type
     });
-    const itemControlMap = {
-        Input: (child: ReactChild) => (
-            <div className="form-item-control">
-                <div className="form-item-control-input">
-                    <div className="form-item-control-input-content">{child}</div>
-                    {!!false && <span className="form-item-children-icon">{ExclamationCircle}</span>}
-                </div>
-                {feedback.type ? (
-                    <div className={`form-item-${feedback.type}`}>
-                        {Warn}
-                        {feedback.message}
-                    </div>
-                ) : null}
+    const getFeedBack = () => {
+        return feedback.type ? (
+            <div className={`form-item-${feedback.type}`}>
+                {feedback.type === 'warn' ? WarnIcon : ErrorIcon}
+                {feedback.message}
             </div>
-        ),
-        Upload: (child: ReactChild) => (
-            <div className="form-item-control">
-                <div className="form-item-control-input">
-                    <div className="form-item-control-input-content">{child}</div>
-                </div>
-                {feedback.type ? (
-                    <div className={`form-item-${feedback.type}`}>
-                        {Warn}
-                        {feedback.message}
-                    </div>
-                ) : null}
-            </div>
-        ),
-        DataPicker: (child: ReactChild) => (
-            <div className="form-item-control">
-                <div className="form-item-control-input">
-                    <div className="form-item-control-input-content">{child}</div>
-                </div>
-                {feedback.type ? (
-                    <div className={`form-item-${feedback.type}`}>
-                        {Warn}
-                        {feedback.message}
-                    </div>
-                ) : null}
-            </div>
-        )
+        ) : null;
     };
+    const getItemControl = (child: ReactChild, elementType) => {
+        switch (elementType) {
+            case ELEMENT_TYPE.INPUT:
+                return (
+                    <div className="form-item-control">
+                        <div className="form-item-control-input">
+                            <div className="form-item-control-input-content">{child}</div>
+                            {!!false && <span className="form-item-children-icon">{ExclamationCircle}</span>}
+                        </div>
+                        {getFeedBack()}
+                    </div>
+                );
+            case ELEMENT_TYPE.UPLOAD:
+            case ELEMENT_TYPE.DARA_PICKER:
+                return (
+                    <div className="form-item-control">
+                        <div className="form-item-control-input">
+                            <div className="form-item-control-input-content">{child}</div>
+                        </div>
+                        {getFeedBack()}
+                    </div>
+                );
+            default:
+                break;
+        }
+    };
+
     const getValueFromEvent = (e) => {
         if (!e || !e.target) {
             return e;
@@ -93,14 +92,15 @@ const FormItem: React.FC<IProp> = (props) => {
             initialValue: '',
             trigger: ['onChange', 'onBlur'],
             validateFirst: true,
-            validateTrigger: ['onChange', 'onBlur']
+            // Upload 需要添加onBlur验证 能触发数据上报
+            validateTrigger: elementType === ELEMENT_TYPE.DARA_PICKER ? ['onChange'] : ['onChange', 'onBlur']
         });
-        let elementTypeProps = {};
+        const elementTypeProps = {};
 
-        if (elementType === 'Upload') {
-            elementTypeProps = {
-                fileList: rcFormItemProps.value
-            };
+        if (elementType === ELEMENT_TYPE.UPLOAD) {
+            // elementTypeProps = {
+            //     fileList: rcFormItemProps.value
+            // };
         }
         return React.cloneElement(child, {
             form,
@@ -112,9 +112,9 @@ const FormItem: React.FC<IProp> = (props) => {
 
     const eleChildren = React.Children.map(children, (child) => {
         const { elementType } = child.type;
-        if (_.includes(['Input', 'Upload', 'DataPicker'], elementType)) {
+        if (elementType in ELEMENT_TYPE) {
             const newChild = enhanceChild(child, elementType);
-            return itemControlMap[elementType](newChild);
+            return getItemControl(newChild, elementType);
         }
         return child;
     });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, HTMLInputTypeAttribute } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { createWaterMark } from '@ued/watermark';
 import urls from '@api/urls';
 import './style.scss';
@@ -6,6 +6,7 @@ import { post } from '@api/request';
 import { UploadPlus } from '@assets/svg';
 import Viewer from 'viewerjs';
 import 'viewerjs/dist/viewer.css';
+import { ELEMENT_TYPE } from '@components/Form/FormItem';
 
 enum STATUS_TYPE {
     EMPTY = 'empty',
@@ -16,10 +17,10 @@ enum STATUS_TYPE {
 }
 
 export type FileItem = {
-    uid: string;
-    name: string;
-    status: string;
-    md5: number;
+    fid: string;
+    full: string;
+    md5: string;
+    name?: string;
 };
 
 interface IProp {
@@ -32,8 +33,9 @@ interface IProp {
     accept?: string;
     fileList?: FileItem[];
     maxCount?: number;
-    onChange?: (e: React.ChangeEvent) => void;
+    onChange?: (any) => void;
     onRemove?: (e) => void;
+    onBlur?: (e) => void;
 }
 
 const Upload: React.FC<IProp> = (props) => {
@@ -60,7 +62,7 @@ const Upload: React.FC<IProp> = (props) => {
     const [preview, setPreview] = useState('');
     const inputRef = useRef(null);
     const imageRef = useRef(null);
-    const newProps = _.omit(props, 'form', 'value', 'listType', 'fileList', 'onBlur', 'onRemove');
+    const newProps = _.pick(props, 'name', 'onChange', 'accept');
     const dataURLtoBlob = (dataurl) => {
         const arr = dataurl.split(','),
             mime = arr[0].match(/:(.*?);/)[1],
@@ -73,16 +75,17 @@ const Upload: React.FC<IProp> = (props) => {
         return new Blob([u8arr], { type: mime });
     };
     const handleRemove = (item) => {
+        form.setFieldsValue({ [name]: '' });
         onRemove(item);
     };
     const handleChangeFile = () => {
         inputRef.current.click();
     };
     const handleChange = async (e) => {
-        onBlur(e); //TODO: 必须先执行，才能触发rc-form 收集数据
+        onBlur(e); //TODO: 必须先执行，才能触发数据上报
         const file = e.target.files[0];
         const error = form.getFieldError(name);
-        console.log('errorerror', error);
+        console.log('upload', error);
         if (error) {
             setStatus(STATUS_TYPE.EMPTY);
             return false;
@@ -121,6 +124,11 @@ const Upload: React.FC<IProp> = (props) => {
         try {
             const res = await post(url, formData);
             if (listType) {
+                setStatus(STATUS_TYPE.SUCCESS);
+                onChange({
+                    ...res.d,
+                    name: file.name
+                });
             } else {
                 const image = new Image();
                 setStatus(STATUS_TYPE.LOADING);
@@ -168,7 +176,7 @@ const Upload: React.FC<IProp> = (props) => {
                     {!_.isEmpty(fileList) && (
                         <div className="upload-list-picture">
                             {fileList.map((item) => (
-                                <div className="upload-list-item-wrap" key={item.uid}>
+                                <div className="upload-list-item-wrap" key={item.fid}>
                                     <div className="upload-list-item">
                                         <div className={getItemFileIconCls(item.name)}></div>
                                         {item.name}
@@ -196,7 +204,6 @@ const Upload: React.FC<IProp> = (props) => {
                                     />
                                 </div>
                             )}
-                            <input {...newProps} ref={inputRef} type="file" accept={accept} onChange={handleChange} />
                         </div>
                     )}
                 </>
@@ -235,6 +242,6 @@ const Upload: React.FC<IProp> = (props) => {
     );
 };
 
-Upload.elementType = 'Upload';
+Upload.elementType = ELEMENT_TYPE.UPLOAD;
 
 export default Upload;

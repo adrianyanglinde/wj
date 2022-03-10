@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './style.scss';
+import { ELEMENT_TYPE } from '@components/Form/FormItem';
 import { Moment } from 'moment';
 
 import Picker, { PickerProps } from 'rc-picker';
@@ -18,6 +19,6 @@ const DataPicker: React.FC<PickerProps<Moment>> = (props) => {
     return <Picker<Moment> {...props} prefixCls="kf-picker" generateConfig={momentGenerateConfig} locale={zhCN} />;
 };
 
-DataPicker.elementType = 'DataPicker';
+DataPicker.elementType = ELEMENT_TYPE.DARA_PICKER;
 
 export default DataPicker;

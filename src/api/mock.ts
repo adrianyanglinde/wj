@@ -14,7 +14,7 @@ Mock.mock(new RegExp(`${prefix}/testUpload`), 'post', {
     c: 0,
     e: '获取配置信息失败',
     d: {
-        fid: '35570',
+        fid: '765be038d665367',
         full: 'https://fs.img4399.com/kf/2022/02/28/18_2682ae082bdf.jpg',
         md5: '765be038d6653679560f09acc2dd7998'
     }

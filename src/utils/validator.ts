@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 interface Strategies {
     [propName: string]: (value: string & File, errorMsg: string, options?: any) => string | void;
 }
@@ -16,6 +18,23 @@ export const strategies: Strategies = {
             return !/(jpg|png)$/i.test(fileType) ? errorMsg : void 0;
         }
         return void 0;
+    },
+    fileType(file, errorMsg) {
+        if ((file as any) instanceof File) {
+            const filePath = file.name.toLowerCase().split('.');
+            const fileType = filePath[filePath.length - 1];
+            return !/(xls|xlsx|csv)$/i.test(fileType) ? errorMsg : void 0;
+        }
+        return void 0;
+    },
+    isSameFile(file, errorMsg, fileList) {
+        if ((file as any) instanceof File) {
+            return _.find(fileList, (item) => item.name === file.name) ? errorMsg : void 0;
+        }
+        return void 0;
+    },
+    isFileEmpty(value, errorMsg, fileList) {
+        return this.isEmpty(value, errorMsg) && fileList.length <= 0 ? errorMsg : void 0;
     },
     minFileSize(file, errorMsg, threshold = 4) {
         if ((file as any) instanceof File) {

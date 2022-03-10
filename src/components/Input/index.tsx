@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ClearIcon } from '@assets/svg';
+import { ELEMENT_TYPE } from '@components/Form/FormItem';
 import './style.scss';
 
 interface IProp {
@@ -83,6 +84,6 @@ const Input: React.FC<IProps> = (props) => {
     return input;
 };
 
-Input.elementType = 'Input';
+Input.elementType = ELEMENT_TYPE.INPUT;
 
 export default Input;
