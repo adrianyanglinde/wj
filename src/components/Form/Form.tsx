@@ -17,9 +17,6 @@ export const ctxRcForm = React.createContext(null);
 
 const Form: React.FC<IProp> = (props) => {
     const { children, form, formRef, layout = LAYOUT.HORIZONTAL } = props;
-    // useEffect(() => {
-    //     console.log('inner', form);
-    // }, [form]);
     const formClassName = classnames(['form', `form-${layout}`]);
     useImperativeHandle(
         formRef,

@@ -252,7 +252,7 @@ $picker-prefix-cls: '#{$prefix-cls}-picker';
         &#{$picker-prefix-cls}-cell-range-end {
             #{$picker-prefix-cls}-cell-inner {
                 color: #fff;
-                background: #1890ff;
+                background: #009688;
             }
         }
     }
@@ -265,5 +265,8 @@ $picker-prefix-cls: '#{$prefix-cls}-picker';
     @include input;
     &-focused {
         @include input-focus;
+    }
+    &-disabled {
+        @include input-disabled;
     }
 }

@@ -1,0 +1,53 @@
+@import '~@sass/pc/mixin.scss';
+
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    @include input;
+    &:focus {
+        @include input-focus;
+    }
+    &-wrapper {
+        // @include input;
+        &-disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+            opacity: 1;
+            .input {
+                color: #00000040;
+            }
+        }
+    }
+    &-suffix {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        &-wrapper {
+            position: relative;
+            &-clear {
+                padding-right: 20px;
+            }
+            &-focused {
+                @include input-focus;
+            }
+            .input {
+                padding: 0;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+    &-clear {
+        &-icon {
+            color: #00000040;
+            font-size: 12px;
+            vertical-align: -1px;
+            cursor: pointer;
+            transition: color 0.3s;
+            display: inline;
+            &:hover {
+                color: #00000073;
+            }
+        }
+    }
+}

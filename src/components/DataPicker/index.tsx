@@ -16,6 +16,7 @@ const DataPicker: React.FC<PickerProps<Moment>> = (props) => {
     const onChange = (newValue: Moment | null, formatString?: string) => {
         console.log('Change:', newValue, formatString);
     };
+
     return <Picker<Moment> {...props} prefixCls="kf-picker" generateConfig={momentGenerateConfig} locale={zhCN} />;
 };
 

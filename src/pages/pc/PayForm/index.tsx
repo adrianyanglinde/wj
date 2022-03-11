@@ -4,9 +4,11 @@ import { produce } from 'immer';
 import Input from '@components/Input';
 import Upload, { FileItem } from '@components/Upload';
 import DataPicker from '@components/DataPicker';
+import Cascader from '@components/Cascader';
 import FormItem from '@components/Form/FormItem';
 import Form, { LAYOUT } from '@components/Form/Form';
 import { strategies } from '@utils/validator';
+import urls from '@api/urls';
 
 const dataFileList = [
     {
@@ -25,20 +27,77 @@ const dataFileList = [
 
 const data = {
     game: { value: 'game1', errors: ['warn:game error'] },
-    // start_date: { value: moment(), errors: ['warn:start_date error'] },
+    start_date: { value: moment(), errors: ['warn:start_date error'] },
     idcard: {
         value: 'https://fs.img4399.com/kf/2022/02/28/18_2682ae082bdf.jpg',
         errors: ['warn:idcard error']
     },
     pay: {
         value: '',
-        errors: ['warn:idcard error']
+        errors: ['warn:银行填写有误']
+    },
+    bank: {
+        value: ['zj', 'hangzhou', 'yuhang'],
+        errors: ['warn:归属地填写有误']
     }
 };
 
+const options = [
+    {
+        label: '福建',
+        value: 'fj',
+        children: [
+            {
+                label: '福州',
+                value: 'fuzhou',
+                children: [
+                    {
+                        label: '马尾',
+                        value: 'mawei'
+                    }
+                ]
+            },
+            {
+                label: '泉州',
+                value: 'quanzhou'
+            }
+        ]
+    },
+    {
+        label: '浙江',
+        value: 'zj',
+        children: [
+            {
+                label: '杭州',
+                value: 'hangzhou',
+                children: [
+                    {
+                        label: '余杭',
+                        value: 'yuhang'
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        label: '北京',
+        value: 'bj',
+        children: [
+            {
+                label: '朝阳区',
+                value: 'chaoyang'
+            },
+            {
+                label: '海淀区',
+                value: 'haidian'
+            }
+        ]
+    }
+];
+
 const PayForm: React.FC = () => {
     const [tab, setTab] = useState(1);
-    const [disabled, setDisabled] = useState(true);
+    const [disabled, setDisabled] = useState(false);
     const [fileList, setFileList] = useState(dataFileList);
     const formRef = useRef();
     const getDescript = (startegy: string, message: string, threshold?: any) => ({
@@ -46,9 +105,7 @@ const PayForm: React.FC = () => {
         message: `error:${message}`
     });
 
-    const handleChange = (e) => {
-        console.log('input otter onChange', e.target);
-    };
+    const handleChange = (e) => {};
 
     const handleRemovePay = (file: FileItem) => {
         setFileList((data) =>
@@ -58,10 +115,10 @@ const PayForm: React.FC = () => {
         );
     };
 
-    const handleChangePay = (item) => {
+    const handleChangePay = (file) => {
         setFileList((data) =>
             produce(data, (draft) => {
-                draft.push(item);
+                draft.push(file);
             })
         );
     };
@@ -128,7 +185,7 @@ const PayForm: React.FC = () => {
                         ]}
                         hidden={tab !== 1}
                     >
-                        <Upload onChange={handleChange} />
+                        <Upload url={urls.testUploadImg} onChange={handleChange} />
                     </FormItem>
                     <FormItem
                         name="pay"
@@ -142,6 +199,7 @@ const PayForm: React.FC = () => {
                         hidden={tab !== 1}
                     >
                         <Upload
+                            url={urls.testUploadFile}
                             accept=".xls,.xlsx,.csv"
                             listType="picture"
                             fileList={fileList}
@@ -155,7 +213,15 @@ const PayForm: React.FC = () => {
                         rules={[getDescript('isEmpty', '请选择消费时间')]}
                         hidden={tab !== 1}
                     >
-                        <DataPicker placeholder="请选择发生消费行为的开始时间" />
+                        <DataPicker disabled={disabled} placeholder="请选择发生消费行为的开始时间" />
+                    </FormItem>
+                    <FormItem
+                        name="bank"
+                        label="银行归属地"
+                        rules={[getDescript('isEmpty', '请选择银行归属地')]}
+                        hidden={tab !== 1}
+                    >
+                        <Cascader placeholder="请选择银行归属地" options={options}></Cascader>
                     </FormItem>
                 </div>
                 <div style={{ display: tab === 2 ? 'block' : 'none' }}>
@@ -167,26 +233,6 @@ const PayForm: React.FC = () => {
                     >
                         <Input disabled={disabled} placeholder="请输入代理人" onChange={handleChange} />
                     </FormItem>
-                    {/* <FormItem
-                        name="province"
-                        label="银行归属地province"
-                        rules={[...descriptor]}
-                        hidden={tab !== 2}
-                    >
-                        <select name="province" id="">
-                            <option value="">请选择</option>
-                        </select>
-                    </FormItem>
-                    <FormItem
-                        name="city"
-                        label="银行归属地city"
-                        rules={[...descriptor]}
-                        hidden={tab !== 2}
-                    >
-                        <select name="city" id="">
-                            <option value="">请选择</option>
-                        </select>
-                    </FormItem> */}
                 </div>
                 <button onClick={submit}>提交</button>
             </Form>

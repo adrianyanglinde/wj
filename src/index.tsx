@@ -10,6 +10,7 @@ import React, { lazy, Suspense } from 'react';
 import { render } from 'react-dom';
 import 'lodash';
 import 'classnames';
+import { enableES5 } from 'immer';
 
 // import Index from '@pages/wap/Index';
 if (process.env.MOCK) {
@@ -18,6 +19,7 @@ if (process.env.MOCK) {
 if (process.env.WAP) {
     import('@utils/flexible');
 }
+enableES5();
 const Index = lazy(() => import(`@pages/${process.env.APP_TERMINAL}/Index`));
 
 render(

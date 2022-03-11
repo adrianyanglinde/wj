@@ -13,9 +13,11 @@ interface IProp {
 }
 
 export enum ELEMENT_TYPE {
-    DARA_PICKER,
     INPUT,
-    UPLOAD
+    UPLOAD,
+    DARA_PICKER,
+
+    CASCADER
 }
 
 const FormItem: React.FC<IProp> = (props) => {
@@ -56,6 +58,7 @@ const FormItem: React.FC<IProp> = (props) => {
                 );
             case ELEMENT_TYPE.UPLOAD:
             case ELEMENT_TYPE.DARA_PICKER:
+            case ELEMENT_TYPE.CASCADER:
                 return (
                     <div className="form-item-control">
                         <div className="form-item-control-input">
@@ -85,28 +88,21 @@ const FormItem: React.FC<IProp> = (props) => {
 
     const enhanceChild = (child, elementType) => {
         const rcFormItemProps = getFieldProps(name, {
+            // have to write original onChange here if you need
             ...child.props,
             rules,
             hidden,
             getValueFromEvent,
             initialValue: '',
-            trigger: ['onChange', 'onBlur'],
+            trigger: elementType === ELEMENT_TYPE.DARA_PICKER ? 'onChange' : 'onBlur',
             validateFirst: true,
             // Upload 需要添加onBlur验证 能触发数据上报
             validateTrigger: elementType === ELEMENT_TYPE.DARA_PICKER ? ['onChange'] : ['onChange', 'onBlur']
         });
-        const elementTypeProps = {};
-
-        if (elementType === ELEMENT_TYPE.UPLOAD) {
-            // elementTypeProps = {
-            //     fileList: rcFormItemProps.value
-            // };
-        }
         return React.cloneElement(child, {
             form,
             name,
-            ...rcFormItemProps,
-            ...elementTypeProps
+            ...rcFormItemProps
         });
     };
 

@@ -1,73 +1,30 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './style.scss';
+import { ELEMENT_TYPE } from '@components/Form/FormItem';
+import RcCascader from 'rc-cascader';
+import { CascaderProps } from 'rc-cascader/lib/Cascader';
+import arrayTreeFilter from 'array-tree-filter';
+import { RightOutlined } from '@assets/svg';
 
-export const data = [
-    {
-        id: 1,
-        area_code: '110000',
-        level: 1,
-        parent_id: -1,
-        name: '北京市',
-        city: [
-            {
-                id: 2,
-                area_code: '110100',
-                level: 2,
-                parent_id: 1,
-                name: '北京城区'
-            }
-        ]
-    },
-    {
-        id: 19,
-        area_code: '120000',
-        level: 1,
-        parent_id: -1,
-        name: '天津市',
-        city: [
-            {
-                id: 20,
-                area_code: '120100',
-                level: 2,
-                parent_id: 19,
-                name: '天津城区'
-            }
-        ]
-    },
-    {
-        id: 37,
-        area_code: '130000',
-        level: 1,
-        parent_id: -1,
-        name: '河北省',
-        city: [
-            {
-                id: 38,
-                area_code: '130100',
-                level: 2,
-                parent_id: 37,
-                name: '石家庄市'
-            },
-            {
-                id: 61,
-                area_code: '130200',
-                level: 2,
-                parent_id: 37,
-                name: '唐山市'
-            },
-            {
-                id: 76,
-                area_code: '130300',
-                level: 2,
-                parent_id: 37,
-                name: '秦皇岛市'
-            }
-        ]
-    }
-];
-
-const Test: React.FC = () => {
-    return <Input></Input>;
+export type OptionType = {
+    label: string;
+    value: string;
+    children?: OptionType[];
 };
 
-export default Test;
+const Cascader: React.FC<CascaderProps<OptionType>> = (props) => {
+    const { value = [], options, placeholder } = props;
+    const getLabel = () =>
+        arrayTreeFilter(options, (o: OptionType, level) => o.value === value[level])
+            .map((o) => o.label)
+            .join(', ');
+    return (
+        <RcCascader {...props} expandIcon={RightOutlined} prefixCls="kf-cascader">
+            <input placeholder={placeholder} className="input" value={getLabel()} readOnly />
+        </RcCascader>
+    );
+};
+
+Cascader.elementType = ELEMENT_TYPE.CASCADER;
+
+export default Cascader;

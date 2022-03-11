@@ -51,7 +51,7 @@ const Upload: React.FC<IProp> = (props) => {
         onRemove = () => {
             // do
         },
-        url = urls.testUpload,
+        url = urls.testUploadImg,
         listType,
         value,
         accept = '*',
@@ -85,27 +85,27 @@ const Upload: React.FC<IProp> = (props) => {
         onBlur(e); //TODO: 必须先执行，才能触发数据上报
         const file = e.target.files[0];
         const error = form.getFieldError(name);
-        console.log('upload', error);
+        console.log('upload11', error);
         if (error) {
             setStatus(STATUS_TYPE.EMPTY);
             return false;
         }
         setStatus(STATUS_TYPE.UPLOADING);
-        if (listType) {
-            upload(file);
-        } else {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = async (event) => {
-                const base64Url = await createWaterMarkAsync(event.target.result);
-                // setStatus(STATUS_TYPE.SUCCESS);
-                // setPreview(base64Url);
-                // new Viewer(imageRef.current);
-                // return;
-                const blob = dataURLtoBlob(base64Url);
-                upload(blob);
-            };
-        }
+        //if (listType) {
+        upload(file);
+        // } else {
+        //     const reader = new FileReader();
+        //     reader.readAsDataURL(file);
+        //     reader.onload = async (event) => {
+        //         const base64Url = await createWaterMarkAsync(event.target.result);
+        //         // setStatus(STATUS_TYPE.SUCCESS);
+        //         // setPreview(base64Url);
+        //         // new Viewer(imageRef.current);
+        //         // return;
+        //         const blob = dataURLtoBlob(base64Url);
+        //         upload(blob);
+        //     };
+        // }
     };
     const createWaterMarkAsync = (dataSource): Promise<string> =>
         new Promise((resolve) => {
@@ -125,6 +125,7 @@ const Upload: React.FC<IProp> = (props) => {
             const res = await post(url, formData);
             if (listType) {
                 setStatus(STATUS_TYPE.SUCCESS);
+                console.log('res', res);
                 onChange({
                     ...res.d,
                     name: file.name
@@ -139,6 +140,7 @@ const Upload: React.FC<IProp> = (props) => {
                 };
             }
         } catch (error) {
+            console.log('post', error);
             setStatus(STATUS_TYPE.DISABLED);
         }
     };
@@ -158,7 +160,7 @@ const Upload: React.FC<IProp> = (props) => {
         if (imageRef.current) {
             new Viewer(imageRef.current);
         }
-    }, [imageRef.current]);
+    }, [imageRef.current, preview]);
 
     const getItemFileIconCls = (name) =>
         classnames([

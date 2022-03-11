@@ -1,3 +1,88 @@
-.test {
-    background: blue;
+@import '~@sass/pc/mixin.scss';
+
+$prefix-cls: '.kf';
+$cascader-prefix-cls: '#{$prefix-cls}-cascader';
+
+#{$cascader-prefix-cls} {
+    &-menus {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+    }
+    &-menu {
+        min-width: 111px;
+        height: 180px;
+        margin: -4px 0;
+        padding: 4px 0;
+        overflow: auto;
+        vertical-align: top;
+        list-style: none;
+        border-right: 1px solid rgba(0, 0, 0, 0.06);
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        &-item {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            padding: 5px 12px;
+            overflow: hidden;
+            line-height: 22px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            transition: all 0.3s;
+            &:hover {
+                background: #f5f5f5;
+            }
+            &-content {
+                flex: auto;
+            }
+        }
+        &-item-expand {
+            #{$cascader-prefix-cls} {
+                &-menu-item-expand-icon {
+                    margin-left: 4px;
+                    // color: #00000073; */
+                    font-size: 10px;
+                }
+            }
+        }
+        &-item-active:not(#{$cascader-prefix-cls}-menu-item-disabled) {
+            font-weight: 600;
+            background-color: #e6f7ff;
+        }
+    }
+    &-dropdown {
+        margin: 0;
+        color: #000000d9;
+        font-variant: tabular-nums;
+        line-height: 1.5715;
+        list-style: none;
+        font-feature-settings: 'tnum';
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        z-index: 1050;
+        box-sizing: border-box;
+        padding: 4px 0;
+        overflow: hidden;
+        font-size: 14px;
+        font-variant: initial;
+        background-color: #fff;
+        border-radius: 2px;
+        outline: none;
+        box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+        &-hidden {
+            display: none;
+        }
+    }
+}
+
+/** kf 退款 */
+#{$cascader-prefix-cls} {
+    &-menu {
+        &-item-active:not(#{$cascader-prefix-cls}-menu-item-disabled) {
+            color: #fff;
+            background-color: #009688;
+        }
+    }
 }
