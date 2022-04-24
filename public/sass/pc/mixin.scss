@@ -1,5 +1,6 @@
 @import '~@sass/mixin.scss';
 @import '~@sass/pc/sprite-icons.scss';
+@import '~@sass/pc/sprite-btns.scss';
 
 @mixin input {
     padding: 10px 15px;
@@ -29,12 +30,12 @@
     }
 }
 @mixin input-border-lighted {
-    border: 1px solid #82d0ad;
+    border: 1px solid $kf-primary-color-hover;
     outline: 0;
 }
 @mixin input-focus {
     @include input-border-lighted;
-    // box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    box-shadow: 0 0 0 2px $kf-primary-color-outline;
 }
 @mixin input-hover {
     @include input-border-lighted;

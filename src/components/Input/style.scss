@@ -1,11 +1,48 @@
 @import '~@sass/pc/mixin.scss';
 
-.input {
+$prefix-cls: '';
+$input-prefix-cls: '.input';
+
+#{$input-prefix-cls} {
     width: 100%;
     box-sizing: border-box;
     @include input;
     &:focus {
         @include input-focus;
+    }
+    &-status {
+        &-error:not(#{$input-prefix-cls}-disabled) {
+            &#{$input-prefix-cls} {
+                background: #fff;
+                border-color: $kf-error-color;
+                &:hover {
+                    background: #fff;
+                    border-color: $kf-error-color;
+                }
+                &:focus {
+                    border-color: $kf-error-color-hover;
+                    box-shadow: 0 0 0 2px $kf-error-color-outline;
+                    border-right-width: 1px;
+                    outline: 0;
+                }
+            }
+        }
+        &-warn:not(#{$input-prefix-cls}-disabled) {
+            &#{$input-prefix-cls} {
+                background: #fff;
+                border-color: $kf-warn-color;
+                &:hover {
+                    background: #fff;
+                    border-color: $kf-warn-color;
+                }
+                &:focus {
+                    border-color: $kf-warn-color-hover;
+                    box-shadow: 0 0 0 2px $kf-warn-color-outline;
+                    border-right-width: 1px;
+                    outline: 0;
+                }
+            }
+        }
     }
     &-wrapper {
         // @include input;
@@ -30,7 +67,7 @@
             &-focused {
                 @include input-focus;
             }
-            .input {
+            #{$input-prefix-cls} {
                 padding: 0;
                 border: none;
                 outline: none;

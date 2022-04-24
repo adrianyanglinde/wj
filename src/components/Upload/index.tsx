@@ -85,7 +85,7 @@ const Upload: React.FC<IProp> = (props) => {
         onBlur(e); //TODO: 必须先执行，才能触发数据上报
         const file = e.target.files[0];
         const error = form.getFieldError(name);
-        console.log('upload11', error);
+        console.log('upload', error);
         if (error) {
             setStatus(STATUS_TYPE.EMPTY);
             return false;

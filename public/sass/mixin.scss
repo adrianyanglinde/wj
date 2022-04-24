@@ -1,3 +1,19 @@
+// 变量
+
+$kf-primary-color: #009688;
+$kf-primary-color-hover: #82d0ad;
+$kf-primary-color-outline: rgba(24, 255, 144, 0.2);
+$kf-error-color: #ff4d4f;
+$kf-error-color-hover: #ff7875;
+$kf-error-color-outline: rgba(255, 77, 79, 0.2);
+$kf-warn-color: #faad14;
+$kf-warn-color-hover: #ffc53d;
+$kf-warn-color-outline: rgba(250, 173, 20, 0.2);
+$kf-success-color: #52c41a;
+$kf-success-color-hover: #73d13d;
+$kf-success-color-outline: rgba(82, 196, 26, 0.2);
+
+// 宏
 @mixin text-ellipse {
     display: inline-block;
     white-space: nowrap;

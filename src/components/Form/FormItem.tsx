@@ -1,4 +1,4 @@
-import React, { useContext, ReactChild } from 'react';
+import React, { useContext, ReactChild, ReactNode } from 'react';
 import { ExclamationCircle, WarnIcon, ErrorIcon } from '@assets/svg';
 import { ctxRcForm } from './Form';
 import './style.scss';
@@ -6,10 +6,11 @@ import './style.scss';
 interface IProp {
     children: React.ReactChild;
     name: string;
-    label: string;
+    label: ReactNode;
     required?: boolean;
     rules?: any;
     hidden?: boolean;
+    extra?: ReactNode;
 }
 
 export enum ELEMENT_TYPE {
@@ -21,7 +22,15 @@ export enum ELEMENT_TYPE {
 }
 
 const FormItem: React.FC<IProp> = (props) => {
-    const { children = null, name = 'name', label = 'label', required = false, rules = null, hidden = false } = props;
+    const {
+        children = null,
+        name = 'name',
+        label = 'label',
+        required = false,
+        rules = null,
+        hidden = false,
+        extra = null
+    } = props;
     const { form } = useContext(ctxRcForm);
     const { getFieldProps, getFieldError } = form;
     const errors = getFieldError(name) || [''];
@@ -99,9 +108,13 @@ const FormItem: React.FC<IProp> = (props) => {
             // Upload 需要添加onBlur验证 能触发数据上报
             validateTrigger: elementType === ELEMENT_TYPE.DARA_PICKER ? ['onChange'] : ['onChange', 'onBlur']
         });
-        return React.cloneElement(child, {
+        const formProps = {
             form,
             name,
+            status: feedback.type
+        };
+        return React.cloneElement(child, {
+            ...formProps,
             ...rcFormItemProps
         });
     };
@@ -120,6 +133,7 @@ const FormItem: React.FC<IProp> = (props) => {
                 <label className={labelClassName}>{label}</label>
             </div>
             {eleChildren}
+            {extra}
         </div>
     );
 };

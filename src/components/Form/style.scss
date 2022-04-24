@@ -14,7 +14,7 @@
                 line-height: 32px;
                 height: 32px;
                 &::after {
-                    content: ':';
+                    // content: ':';
                     position: relative;
                     top: -0.5px;
                     margin: 0 8px 0 2px;
@@ -51,15 +51,15 @@
         }
         &-error {
             @include feedback;
-            color: #ff4d4f;
+            color: $kf-error-color;
         }
         &-warn {
             @include feedback;
-            color: #faad14;
+            color: $kf-warn-color;
         }
         &-success {
             @include feedback;
-            color: #52c41a;
+            color: $kf-success-color;
         }
         &-text {
             float: left;
@@ -83,21 +83,21 @@
                 .input,
                 .kf-picker {
                     background: #fff;
-                    border-color: #ff4d4f;
+                    border-color: $kf-error-color;
                 }
             }
             &-warn {
                 .input,
                 .kf-picker {
                     background: #fff;
-                    border-color: #faad14;
+                    border-color: $kf-warn-color;
                 }
             }
             &-success {
                 .input,
                 .kf-picker {
                     background: #fff;
-                    border-color: #52c41a;
+                    border-color: $kf-success-color;
                 }
             }
         }

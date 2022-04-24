@@ -9,6 +9,8 @@ interface IProp {
     allowclear?: boolean;
     form?: any;
     name?: string;
+    status?: string;
+    disabled?: boolean;
 }
 type IProps = IProp & Partial<HTMLInputElement>;
 
@@ -22,9 +24,8 @@ const Input: React.FC<IProps> = (props) => {
         },
         allowclear = false,
         disabled = false,
-        form = null,
-        name = ''
-        // value = ''
+        name = '',
+        status = ''
     } = props;
     const inputRef = useRef(null);
     const [clearVisible, setClearVisible] = useState(false);
@@ -39,15 +40,17 @@ const Input: React.FC<IProps> = (props) => {
         setFocused(false);
         onBlur(e);
     };
-    // const handleClear = () => {
-    //     form?.setFieldsValue({ [name]: '' });
-    //     form?.validateFields([name]);
-    //     inputRef.current.focus();
-    // };
+    const className = classnames([
+        'input',
+        {
+            'input-status-error': status === 'error',
+            'input-status-warn': status === 'warn'
+        }
+    ]);
     const input = (
         <input
-            {..._.omit(props, ['allowclear', 'form'])}
-            className="input"
+            {..._.pick(props, ['name', 'value', 'disabled', 'placeholder'])}
+            className={className}
             onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlur}

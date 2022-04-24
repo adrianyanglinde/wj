@@ -16,7 +16,7 @@ interface IProp {
 export const ctxRcForm = React.createContext(null);
 
 const Form: React.FC<IProp> = (props) => {
-    const { children, form, formRef, layout = LAYOUT.HORIZONTAL } = props;
+    const { children, form, formRef, layout = LAYOUT.VERTICAL } = props;
     const formClassName = classnames(['form', `form-${layout}`]);
     useImperativeHandle(
         formRef,

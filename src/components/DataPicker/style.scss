@@ -252,7 +252,7 @@ $picker-prefix-cls: '#{$prefix-cls}-picker';
         &#{$picker-prefix-cls}-cell-range-end {
             #{$picker-prefix-cls}-cell-inner {
                 color: #fff;
-                background: #009688;
+                background: $kf-primary-color;
             }
         }
     }

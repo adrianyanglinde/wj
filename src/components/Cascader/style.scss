@@ -82,7 +82,7 @@ $cascader-prefix-cls: '#{$prefix-cls}-cascader';
     &-menu {
         &-item-active:not(#{$cascader-prefix-cls}-menu-item-disabled) {
             color: #fff;
-            background-color: #009688;
+            background-color: $kf-primary-color;
         }
     }
 }

@@ -1,5 +1,42 @@
-.index-pc {
-    width: 1000px;
-    height: 642px;
-    background: url(~@assets/images/pc/banner.jpg);
+@import '~@sass/pc/mixin.scss';
+
+body,
+button,
+input,
+textarea {
+    color: #333;
+    font: 14px/1.4 'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', 'Microsoft Yahei', sans-serif;
+}
+
+.form {
+    &-item-label {
+        span {
+            color: #aaaaaa;
+        }
+        a {
+            color: #aaaaaa;
+            text-decoration: underline;
+        }
+    }
+    &-item-tip {
+        color: #aaaaaa;
+        height: 32px;
+        line-height: 32px;
+    }
+    &-btn-group {
+        padding-top: 40px;
+        height: 100px;
+        text-align: center;
+    }
+}
+
+.button {
+    @include sprite-btns;
+    @include btn2;
+    margin: 0 10px;
+    color: #fff;
+    font-size: 18px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
 }

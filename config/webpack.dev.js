@@ -18,11 +18,11 @@ module.exports = merge(common, {
     output: {
         path: paths.appBuild,
         filename: '[name].bundle.js',
-        //The publicPath will be used within our server script as well in order to make sure files are served correctly on http://localhost:3000.
+        // The publicPath will be used within our server script as well in order to make sure files are served correctly on http://localhost:3000.
         publicPath: publicPath
     },
 
-    //which maps your compiled code back to your original source code
+    // which maps your compiled code back to your original source code
     devtool: 'inline-source-map',
 
     //webpack-dev-server provides you with a simple web server and the ability to use live reloading
@@ -43,13 +43,15 @@ module.exports = merge(common, {
         // use an image, put it in `src` and `import` it from JavaScript instead.
         contentBase: paths.appPublic,
         compress: true,
-        host: 'localhost',
+        host: 'f.4399.com',
         port: 7000,
         proxy: proxyConfig,
         //HMR  It allows all kinds of modules to be updated at runtime without the need for a full refresh.
         hot: true, //open Hot Module Replacement
         // With devServer.quiet enabled, nothing except the initial startup information will be written to the console.
         // This also means that errors or warnings from webpack are not visible.
-        quiet: true
+        quiet: true,
+        // When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses.
+        historyApiFallback: true
     }
 });
