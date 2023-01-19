@@ -6,6 +6,7 @@ import BaseInfo from '@pages/pc/BaseInfo';
 import IndentityInfo from '@pages/pc/IndentityInfo';
 import BankInfo from '@pages/pc/BankInfo';
 import Process from '@pages/pc/Process';
+import Clipboard from '@pages/pc/Clipboard';
 import '@sass/pc/reset.scss';
 import './style.scss';
 
@@ -13,6 +14,7 @@ const Index: React.FC = () => {
     return (
         <BrowserRouter>
             <Switch>
+                <Route path="/example/clipboard" component={Clipboard} />
                 <Route
                     path="/info/:info"
                     component={() => (

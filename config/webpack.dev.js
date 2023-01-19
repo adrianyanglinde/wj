@@ -44,7 +44,7 @@ module.exports = merge(common, {
         contentBase: paths.appPublic,
         compress: true,
         host: 'f.4399.com',
-        port: 7000,
+        port: 9900,
         proxy: proxyConfig,
         //HMR  It allows all kinds of modules to be updated at runtime without the need for a full refresh.
         hot: true, //open Hot Module Replacement

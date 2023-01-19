@@ -8,6 +8,9 @@ import Form from '@components/Form/Form';
 import { strategies } from '@utils/validator';
 import urls from '@api/urls';
 import DataPicker from '@components/DataPicker';
+import AccountBookFilledSvg from '@ant-design/icons-svg/lib/asn/AccountBookFilled';
+
+console.log('AccountBookFilledSvg', AccountBookFilledSvg);
 
 const dataFileList = [
     {
